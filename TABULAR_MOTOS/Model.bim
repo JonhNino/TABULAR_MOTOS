@@ -33,6 +33,7 @@
           {
             "name": "SK_DIM_MODALIDAD_HURTO",
             "dataType": "int64",
+            "isHidden": true,
             "sourceColumn": "SK_DIM_MODALIDAD_HURTO"
           },
           {
@@ -76,6 +77,18 @@
               ]
             }
           }
+        ],
+        "measures": [
+          {
+            "name": "Distinct Count of STR_MEDIO_TRANSPORTE",
+            "expression": "DISTINCTCOUNT([STR_MEDIO_TRANSPORTE])",
+            "displayFolder": "CANTIDADES"
+          },
+          {
+            "name": "Distinct Count of STR_MODALIDAD",
+            "expression": "DISTINCTCOUNT([STR_MODALIDAD])",
+            "displayFolder": "CANTIDADES"
+          }
         ]
       },
       {
@@ -84,6 +97,7 @@
           {
             "name": "SK_DIM_PERSONA",
             "dataType": "int64",
+            "isHidden": true,
             "sourceColumn": "SK_DIM_PERSONA"
           },
           {
@@ -122,6 +136,13 @@
               ]
             }
           }
+        ],
+        "measures": [
+          {
+            "name": "Distinct Count of STR_SEXO",
+            "expression": "DISTINCTCOUNT([STR_SEXO])",
+            "displayFolder": "CANTIDADES"
+          }
         ]
       },
       {
@@ -130,6 +151,7 @@
           {
             "name": "SK_DIM_PRODUCTO_HURTADO",
             "dataType": "int64",
+            "isHidden": true,
             "sourceColumn": "SK_DIM_PRODUCTO_HURTADO"
           },
           {
@@ -186,6 +208,7 @@
           {
             "name": "SK_DIM_SEDE_RECEPTORA",
             "dataType": "int64",
+            "isHidden": true,
             "sourceColumn": "SK_DIM_SEDE_RECEPTORA"
           },
           {
@@ -222,46 +245,56 @@
           {
             "name": "SK_DIM_TIEMPO",
             "dataType": "int64",
+            "isHidden": true,
             "sourceColumn": "SK_DIM_TIEMPO"
           },
           {
             "name": "DT_FECHA",
             "dataType": "dateTime",
+            "isHidden": true,
             "sourceColumn": "DT_FECHA"
           },
           {
             "name": "NUM_ANIO",
             "dataType": "int64",
+            "isHidden": true,
             "sourceColumn": "NUM_ANIO"
           },
           {
             "name": "STR_SEMESTRE",
             "dataType": "string",
+            "isHidden": true,
             "sourceColumn": "STR_SEMESTRE"
           },
           {
             "name": "NUM_PERIODO",
             "dataType": "int64",
+            "isHidden": true,
             "sourceColumn": "NUM_PERIODO"
           },
           {
             "name": "STR_MES",
             "dataType": "string",
-            "sourceColumn": "STR_MES"
+            "isHidden": true,
+            "sourceColumn": "STR_MES",
+            "sortByColumn": "NUM_MES"
           },
           {
             "name": "NUM_MES",
             "dataType": "int64",
+            "isHidden": true,
             "sourceColumn": "NUM_MES"
           },
           {
             "name": "NUM_DIA",
             "dataType": "int64",
+            "isHidden": true,
             "sourceColumn": "NUM_DIA"
           },
           {
             "name": "NUM_SEMANA_MES",
             "dataType": "int64",
+            "isHidden": true,
             "sourceColumn": "NUM_SEMANA_MES"
           }
         ],
@@ -280,6 +313,50 @@
               ]
             }
           }
+        ],
+        "measures": [
+          {
+            "name": "Sum of NUM_DIA",
+            "expression": "SUM([NUM_DIA])",
+            "displayFolder": "Sumatoria"
+          },
+          {
+            "name": "Count of NUM_SEMANA_MES",
+            "expression": "COUNTA([NUM_SEMANA_MES])",
+            "displayFolder": "Cantidad"
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Tiempo",
+            "levels": [
+              {
+                "name": "NUM_PERIODO",
+                "ordinal": 4,
+                "column": "NUM_PERIODO"
+              },
+              {
+                "name": "NUM_ANIO",
+                "ordinal": 3,
+                "column": "NUM_ANIO"
+              },
+              {
+                "name": "STR_SEMESTRE",
+                "ordinal": 1,
+                "column": "STR_SEMESTRE"
+              },
+              {
+                "name": "STR_MES",
+                "ordinal": 2,
+                "column": "STR_MES"
+              },
+              {
+                "name": "DT_FECHA",
+                "ordinal": 0,
+                "column": "DT_FECHA"
+              }
+            ]
+          }
         ]
       },
       {
@@ -288,6 +365,7 @@
           {
             "name": "SK_DIM_UBICACION",
             "dataType": "int64",
+            "isHidden": true,
             "sourceColumn": "SK_DIM_UBICACION"
           },
           {
@@ -335,6 +413,12 @@
                 "    dbo_TBL_DIM_UBICACION_T0"
               ]
             }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Distinct Count of STR_BARRIO",
+            "expression": "DISTINCTCOUNT([STR_BARRIO])"
           }
         ]
       },
@@ -398,6 +482,61 @@
             }
           }
         ]
+      },
+      {
+        "name": "CalculatedTable 1",
+        "partitions": [
+          {
+            "name": "CalculatedTable 1",
+            "source": {
+              "type": "calculated"
+            }
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "3f0427ef-4206-489c-b882-9449747e7f46",
+        "fromTable": "TBL_FACT_HURTO_MOTO",
+        "fromColumn": "SK_DIM_PERSONA",
+        "toTable": "TBL_DIM_PERSONA_T0",
+        "toColumn": "SK_DIM_PERSONA"
+      },
+      {
+        "name": "e8363810-6129-4425-9402-79a47eee4847",
+        "fromTable": "TBL_FACT_HURTO_MOTO",
+        "fromColumn": "SK_DIM_MODALIDAD_HURTO",
+        "toTable": "TBL_DIM_MODALIDAD_HURTO_T0",
+        "toColumn": "SK_DIM_MODALIDAD_HURTO"
+      },
+      {
+        "name": "a9db437f-c0aa-471a-b7f1-5231779bd44e",
+        "fromTable": "TBL_FACT_HURTO_MOTO",
+        "fromColumn": "SK_DIM_TIEMPO",
+        "toTable": "TBL_DIM_TIEMPO_T0",
+        "toColumn": "SK_DIM_TIEMPO"
+      },
+      {
+        "name": "c63de8de-2c73-4699-abc7-c062f57ac406",
+        "fromTable": "TBL_FACT_HURTO_MOTO",
+        "fromColumn": "SK_DIM_SEDE_RECEPTORA",
+        "toTable": "TBL_DIM_SEDE_RECEPTORA_T0",
+        "toColumn": "SK_DIM_SEDE_RECEPTORA"
+      },
+      {
+        "name": "07f47eb6-c44a-4941-a19a-969d9e0a4c15",
+        "fromTable": "TBL_FACT_HURTO_MOTO",
+        "fromColumn": "SK_DIM_PRODUCTO_HURTADO",
+        "toTable": "TBL_DIM_PRODUCTO_HURTADO_T0",
+        "toColumn": "SK_DIM_PRODUCTO_HURTADO"
+      },
+      {
+        "name": "f289093f-dfcc-4c04-b0f4-bb4b7f884fc2",
+        "fromTable": "TBL_FACT_HURTO_MOTO",
+        "fromColumn": "SK_DIM_UBICACION",
+        "toTable": "TBL_DIM_UBICACION_T0",
+        "toColumn": "SK_DIM_UBICACION"
       }
     ],
     "annotations": [
